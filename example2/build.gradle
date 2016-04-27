@@ -1,0 +1,6 @@
+apply from: 'cooking.groovy'
+
+task myMeals << {
+  def meals = project.cooking.meals
+  meals.each { println "$it.peopleEating people eating $it.name" }
+}

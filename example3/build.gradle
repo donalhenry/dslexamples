@@ -1,0 +1,8 @@
+apply from: 'cooking.groovy'
+
+task myTeams << {
+  def teams = project.devconfig.teams
+  teams.each { team ->
+    println team.yum.path
+  }
+}
