@@ -45,12 +45,10 @@ class YumRepo {
 
 class Team {
   String name
-  Project project
   Yum yum
 
   Team(String name, Project project) {
     this.name = name
-    this.project = project
     this.yum = new Yum(name, project)
   }
 
@@ -61,11 +59,11 @@ class Team {
 
 class Yum {
   String path
-  Project project
+  YumRepo yumRepo
 
   Yum(String teamName, Project project) {
     this.path = "/opt/teamrepos/$teamName/rhel/6"
-    this.project = project
+    this.yumRepo = project.devconfig.repositories.yum
   }
 
   void configure(Closure closure) {
@@ -73,6 +71,6 @@ class Yum {
   }
 
   String getUrl() {
-    "$project.devconfig.repositories.yum.baseUrl/$path"
+    "$yumRepo.baseUrl$path"
   }
 }
