@@ -1,0 +1,13 @@
+apply from: 'cooking.groovy'
+
+task dumpAllTeamUrls << {
+  def teams = project.devconfig.teams
+  teams.each { team ->
+    println team.yum.url
+  }
+}
+
+task dumpTeamUrl << {
+  def team = project.devconfig.teams.getByName(project['team'])
+  println team.yum.url
+}
