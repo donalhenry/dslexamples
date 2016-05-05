@@ -1,0 +1,10 @@
+.gradle/*
+example1/.gradle/*
+example1/buildSrc/.gradle/*
+example1/buildSrc/build/*
+example2/.gradle/*
+example2/buildSrc/.gradle/*
+example2/buildSrc/build/*
+example3/.gradle/*
+example3/buildSrc/.gradle/*
+example3/buildSrc/build/*
