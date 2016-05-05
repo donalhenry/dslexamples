@@ -1,4 +1,7 @@
-apply plugin: CookingDslPlugin
+package com.donalhenry.gradle.example1
+
+import org.gradle.api.Project
+import org.gradle.api.Plugin
 
 class CookingDslPlugin implements Plugin<Project> {
   void apply(Project project) {
@@ -7,7 +10,6 @@ class CookingDslPlugin implements Plugin<Project> {
       new Meal(name)
     }
     project.cooking.extensions.meals = meals
-//    project.cooking.extensions.add('meals', meals)
   }
 }
 
