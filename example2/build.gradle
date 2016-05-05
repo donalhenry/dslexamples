@@ -1,6 +1,27 @@
-apply from: 'cooking.groovy'
+import com.donalhenry.gradle.example2.*
 
-task myMeals << {
+apply plugin: CookingDslPlugin
+
+cooking {
+  expectedPeopleEating = 1
+
+  meals {
+    breakfast {
+    }
+    brunch {
+      peopleEating = 4
+    }
+    lunch {
+    }
+    dinner {
+      peopleEating = 2
+    }
+  }
+}
+
+task listAllMeals << {
   def meals = project.cooking.meals
-  meals.each { println "$it.peopleEating people eating $it.name" }
+  meals.each { meal ->
+    println "$meal.peopleEating people eating $meal.name"
+  }
 }
