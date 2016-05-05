@@ -1,6 +1,22 @@
-apply from: 'cooking.groovy'
+import com.donalhenry.gradle.example3.*
 
-task myTeams << {
+apply plugin: CookingDslPlugin
+
+devconfig {
+  teams {
+    // Team defaults:
+    // yum.path = '/opt/teamrepos/$TeamName/rhel/6'
+    elections { }
+    engineering { }
+    pfunk {
+      yum {
+        path = '/opt/teamrepos/P-Funk/rhel/6'
+      }
+    }
+  }
+}
+
+task dumpAllTeams << {
   def teams = project.devconfig.teams
   teams.each { team ->
     println team.yum.path

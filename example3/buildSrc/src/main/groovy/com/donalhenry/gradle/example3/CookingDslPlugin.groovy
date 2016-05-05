@@ -1,6 +1,11 @@
-apply plugin: CookingDslPlugin
+package com.donalhenry.gradle.example3
+
+import org.gradle.api.Project
+import org.gradle.api.Plugin
+import org.gradle.util.ConfigureUtil
 
 class CookingDslPlugin implements Plugin<Project> {
+
   void apply(Project project) {
     project.extensions.create('devconfig', CookingExtension)
     def teams = project.container(Team) { name->
