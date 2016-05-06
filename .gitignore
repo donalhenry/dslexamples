@@ -8,3 +8,6 @@ example2/buildSrc/build/*
 example3/.gradle/*
 example3/buildSrc/.gradle/*
 example3/buildSrc/build/*
+example4/.gradle/*
+example4/buildSrc/.gradle/*
+example4/buildSrc/build/*

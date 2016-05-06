@@ -1,4 +1,26 @@
-apply from: 'cooking.groovy'
+import com.donalhenry.gradle.example4.*
+
+apply plugin: CookingDslPlugin
+
+devconfig {
+  repositories {
+    yum {
+      host = 'yumrepo.example.com'
+    }
+  }
+
+  teams {
+    // Team defaults:
+    // yum.path = '/opt/teamrepos/$TeamName/rhel/6'
+    elections { }
+    engineering { }
+    pfunk {
+      yum {
+        path = '/opt/teamrepos/P-Funk/rhel/6'
+      }
+    }
+  }
+}
 
 task dumpAllTeamUrls << {
   def teams = project.devconfig.teams
@@ -8,6 +30,7 @@ task dumpAllTeamUrls << {
 }
 
 task dumpTeamUrl << {
-  def team = project.devconfig.teams.getByName(project['team'])
+  def teams = project.devconfig.teams
+  def team = teams.getByName(project['team'])
   println team.yum.url
 }
