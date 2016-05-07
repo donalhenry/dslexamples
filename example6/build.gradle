@@ -1,0 +1,39 @@
+import com.donalhenry.gradle.example6.*
+
+apply plugin: CookingDslPlugin
+
+envs {
+  defaultDomain = 'example.com'
+
+  /*
+  dev {
+    chefNode {
+      host = 'dev'
+    }
+  }
+
+  qa {
+    chefNode {
+      host = 'qa-1'
+    }
+    chefNode {
+      host = 'qa-2'
+    }
+  }
+
+  prod {
+    chefNode {
+      host = 'prod-1'
+      domain = 'amazonaws.com'
+    }
+    chefNode {
+      host = 'prod-2'
+      domain = 'amazonaws.com'
+    }
+  }
+  */
+}
+
+task myTest << {
+  println envs.defaultDomain
+}
