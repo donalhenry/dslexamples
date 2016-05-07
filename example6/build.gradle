@@ -5,7 +5,6 @@ apply plugin: CookingDslPlugin
 envs {
   defaultDomain = 'example.com'
 
-  /*
   dev {
     chefNode {
       host = 'dev'
@@ -21,6 +20,7 @@ envs {
     }
   }
 
+  /*
   prod {
     chefNode {
       host = 'prod-1'
@@ -36,4 +36,7 @@ envs {
 
 task myTest << {
   println envs.defaultDomain
+  envs.qa.chefNodes.each { chefNode ->
+    println chefNode.host
+  }
 }
