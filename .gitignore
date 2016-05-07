@@ -11,3 +11,6 @@ example3/buildSrc/build/*
 example4/.gradle/*
 example4/buildSrc/.gradle/*
 example4/buildSrc/build/*
+example5/.gradle/*
+example5/buildSrc/.gradle/*
+example5/buildSrc/build/*
