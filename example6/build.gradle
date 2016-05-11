@@ -2,41 +2,81 @@ import com.donalhenry.gradle.example6.*
 
 apply plugin: CookingDslPlugin
 
-envs {
-  defaultDomain = 'example.com'
+environments {
+  prod {
+    nodes {
+      n1 {
+        host = 'n1-prod'
+        userName = 'xxxxx'
+        password = 'xxxxx'
+        loadBalancer = 'lb_prod'
+        frontendJkManagerUrl = 'http://apache-prod/jkmanager'
+      }
+      n2 {
+        host = 'n2-prod'
+        userName = 'xxxxx'
+        password = 'xxxxx'
+        loadBalancer = 'lb_prod'
+        frontendJkManagerUrl = 'http://apache-prod/jkmanager'
+      }
+    }
+    scheduler {
+      name = 'n1'
+    }
+  }
 
   dev {
-    chefNode {
-      host = 'dev'
+    nodes {
+      'n1-dev' {
+        host = 'n1-dev'
+        userName = 'xxxxx'
+        password = 'xxxxx'
+        loadBalancer = 'lb_dev'
+        frontendJkManagerUrl = 'http://apache-dev/jkmanager'
+      }
+    }
+    scheduler {
+      name = 'n1-dev'
     }
   }
-
-  qa {
-    chefNode {
-      host = 'qa-1'
-    }
-    chefNode {
-      host = 'qa-2'
-    }
-  }
-
-  /*
-  prod {
-    chefNode {
-      host = 'prod-1'
-      domain = 'amazonaws.com'
-    }
-    chefNode {
-      host = 'prod-2'
-      domain = 'amazonaws.com'
-    }
-  }
-  */
 }
 
 task myTest << {
-  println envs.defaultDomain
-  envs.qa.chefNodes.each { chefNode ->
-    println chefNode.host
+  environments.each { env ->
+    println env.name
+    env.nodes.each { node->
+      println "\t$node.name"
+    }
+    println "\t$env.schedulerNode.loadBalancer"
   }
 }
+
+/*
+asgard {
+  regions {
+    'us-east-1' {
+      autoScaling {
+        devPhase = 'test'
+        min = 3
+        max = 6
+        availabilityZones = ['a', 'b', 'c']
+        ami = 'Base AMI 2013-07-11'
+        instanceType = 'm3.xlarge'
+        securityGroups = ['base', 'test-application']
+      }
+      autoScaling {
+        devPhase = 'stage'
+      }
+    }
+
+    'us-west-1' {
+      autoScaling {
+        devPhase = 'test'
+      }
+      autoScaling {
+        devPhase = 'stage'
+      }
+    }
+  }
+}
+*/

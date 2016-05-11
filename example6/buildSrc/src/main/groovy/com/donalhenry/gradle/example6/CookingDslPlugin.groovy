@@ -1,76 +1,63 @@
+// http://mrhaki.blogspot.com/2016/02/gradle-goodness-using-nested-domain.html
+// https://zenofchicken.wordpress.com/2012/12/31/article-series-creating-a-custom-gradle-plugin-with-custom-tasks-managing-configuration-and-domain-objects/
+
 package com.donalhenry.gradle.example6
 
 import org.gradle.api.Project
 import org.gradle.api.Plugin
 import org.gradle.util.ConfigureUtil
+import org.gradle.api.NamedDomainObjectContainer
 
 class CookingDslPlugin implements Plugin<Project> {
   void apply(Project project) {
-    project.extensions.create('envs', CookingExtension)
-    /*
-    project.devconfig.extensions.repositories = new Repositories()
-    def teams = project.container(Team) { name->
-      new Team(name, project)
+    def environments = project.container(Environment) { name->
+      new Environment(name, project)
     }
-    project.devconfig.extensions.teams = teams
-
-    project.tasks.create(name: 'dumpAllTeamUrls', type: DumpAllTeamUrls) { }
-    project.tasks.create(name: 'dumpTeamUrl', type: DumpTeamUrl) { }
-
-    project.tasks.withType(DumpAllTeamUrls) {
-      def devconfigExt = project.extensions.getByName('devconfig')
-      conventionMapping.teams = { devconfigExt.extensions.getByName('teams') }
-    }
-    project.tasks.withType(DumpTeamUrl) {
-      def devconfigExt = project.extensions.getByName('devconfig')
-      conventionMapping.teams = { devconfigExt.extensions.getByName('teams') }
-    }
-    */
-  }
-}
-
-class CookingExtension {
-  String defaultDomain
-  Environment dev, qa
-
-  CookingExtension() {
-    dev = new Environment()
-    qa = new Environment()
-  }
-
-  void dev(Closure closure) {
-    dev.configure(closure)
-  }
-
-  void qa(Closure closure) {
-    qa.configure(closure)
+    project.extensions.add('environments', environments)
   }
 }
 
 class Environment {
-  List<ChefNode> chefNodes = []
+  String name
+  NamedDomainObjectContainer<Node> nodes
+  Scheduler scheduler
 
-  Environment() {
+  Environment(String name, Project project) {
+    this.name = name
+    this.nodes = project.container(Node)
   }
 
-  void configure(Closure closure) {
-    ConfigureUtil.configure(closure, this)
+  void nodes(Closure closure) {
+    nodes.configure(closure)
   }
 
-  void chefNode(Closure closure) {
-    def chefNode = new ChefNode()
-    chefNode.configure(closure)
-    chefNodes.add(chefNode)
+  void scheduler(Closure closure) {
+    this.scheduler = new Scheduler()
+    scheduler.configure(closure)
+  }
+
+  Node getSchedulerNode() {
+    nodes.getByName(scheduler.name)
   }
 }
 
-class ChefNode {
-  String host
-
-  ChefNode () {
-  }
+class Scheduler {
+  String name
 
   void configure(Closure closure) {
     ConfigureUtil.configure(closure, this)
+  }
+}
+
+class Node {
+  String name
+  String host
+  String userName
+  String password
+  String loadBalancer
+  String frontendJkManagerUrl
+
+  Node(String name) {
+    this.name = name
   }
 }
