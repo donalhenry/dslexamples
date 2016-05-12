@@ -1,0 +1,40 @@
+import com.donalhenry.gradle.example7.*
+
+apply plugin: CookingDslPlugin
+
+asgard {
+  regions {
+    'us-east-1' {
+      autoScaling {
+        devPhase = 'test'
+        min = 3
+        max = 6
+        availabilityZones = ['a', 'b', 'c']
+        ami = 'Base AMI 2013-07-11'
+        instanceType = 'm3.xlarge'
+        securityGroups = ['base', 'test-application']
+      }
+      autoScaling {
+        devPhase = 'stage'
+      }
+    }
+
+    'us-west-1' {
+      autoScaling {
+        devPhase = 'test'
+      }
+      autoScaling {
+        devPhase = 'stage'
+      }
+    }
+  }
+}
+
+task myTest << {
+  asgard.regions.each { region ->
+    println region.name
+    region.autoScalings.each { autoScaling ->
+      println "\t$autoScaling.devPhase"
+    }
+  }
+}
