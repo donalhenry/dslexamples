@@ -50,33 +50,3 @@ task myTest << {
     println "\t$env.schedulerNode.loadBalancer"
   }
 }
-
-/*
-asgard {
-  regions {
-    'us-east-1' {
-      autoScaling {
-        devPhase = 'test'
-        min = 3
-        max = 6
-        availabilityZones = ['a', 'b', 'c']
-        ami = 'Base AMI 2013-07-11'
-        instanceType = 'm3.xlarge'
-        securityGroups = ['base', 'test-application']
-      }
-      autoScaling {
-        devPhase = 'stage'
-      }
-    }
-
-    'us-west-1' {
-      autoScaling {
-        devPhase = 'test'
-      }
-      autoScaling {
-        devPhase = 'stage'
-      }
-    }
-  }
-}
-*/

@@ -13,8 +13,12 @@ class CookingDslPlugin implements Plugin<Project> {
     }
     project.devconfig.extensions.teams = teams
 
-    project.tasks.create(name: 'dumpAllTeamUrls', type: DumpAllTeamUrls) { }
-    project.tasks.create(name: 'dumpTeamUrl', type: DumpTeamUrl) { }
+    project.tasks.create(name: 'dumpAllTeamUrls', type: DumpAllTeamUrls) {
+      description 'Dumps all team URLs.'
+    }
+    project.tasks.create(name: 'dumpTeamUrl', type: DumpTeamUrl) {
+      description 'Dumps specified (with -Pteam=XXX) team URL.'
+    }
 
     project.tasks.withType(DumpAllTeamUrls) {
       def devconfigExt = project.extensions.getByName('devconfig')
