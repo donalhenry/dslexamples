@@ -17,9 +17,9 @@ cooking {
   }
 }
 
-task listAllMeals << {
-  def meals = project.cooking.meals
-  meals.each { meal ->
-    println "$meal.peopleEating people eating $meal.name"
+task listAllMeals {   
+  project.cooking.meals.each { meal ->
+    def numberEating = meal.peopleEating
+    println "$numberEating people eating $meal.name"
   }
 }
