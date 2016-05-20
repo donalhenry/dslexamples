@@ -5,11 +5,8 @@ import org.gradle.api.Plugin
 
 class CookingDslPlugin implements Plugin<Project> {
   void apply(Project project) {
-    // project.extensions.create('cooking', CookingExtension)
-    project.extensions.cooking = CookingExtension
-    def meals = project.container(Meal) { name->
-      new Meal(name)
-    }
+    project.extensions.create('cooking', CookingExtension)
+    def meals = project.container(Meal)
     project.cooking.extensions.meals = meals
   }
 }
