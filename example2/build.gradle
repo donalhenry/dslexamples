@@ -2,26 +2,25 @@ import com.donalhenry.gradle.example2.*
 
 apply plugin: CookingDslPlugin
 
-cooking {
-  expectedPeopleEating = 1
+devconfig {
+  minTeamsize = 1
 
-  meals {
-    breakfast {
+  teams {
+    elections {
     }
-    brunch {
-      peopleEating = 4
+    engineering {
+      size = 4
     }
-    lunch {
+    pfunk {
     }
-    dinner {
-      peopleEating = 2
+    player {
+      size = 2
     }
   }
 }
 
-task listAllMeals << {
-  def meals = project.cooking.meals
-  meals.each { meal ->
-    println "$meal.peopleEating people eating $meal.name"
+task listAllTeams << {
+  project.devconfig.teams.each { team ->
+    println "Team $team.name has $team.sizeString."
   }
 }

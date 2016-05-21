@@ -5,9 +5,9 @@ import org.gradle.api.Plugin
 
 class CookingDslPlugin implements Plugin<Project> {
   void apply(Project project) {
-    project.extensions.create('cooking', CookingExtension)
-    def meals = project.container(Meal)
-    project.cooking.extensions.meals = meals
+    project.extensions.create('devconfig', CookingExtension)
+    def teams = project.container(Team)
+    project.devconfig.extensions.teams = teams
   }
 }
 
@@ -16,11 +16,15 @@ class CookingExtension {
   }
 }
 
-class Meal {
+class Team {
   String name
-  Integer peopleEating = 1
+  Integer size = 1
 
-  Meal(String name) {
+  Team(String name) {
     this.name = name
+  }
+
+  String getSizeString() {
+    (size == 1) ? "$size member" : "$size members"
   }
 }

@@ -5,27 +5,31 @@ import org.gradle.api.Plugin
 
 class CookingDslPlugin implements Plugin<Project> {
   void apply(Project project) {
-    project.extensions.create('cooking', CookingExtension)
-    def meals = project.container(Meal) { name->
-      new Meal(name, project.cooking.expectedPeopleEating)
+    project.extensions.create('devconfig', CookingExtension)
+    def teams = project.container(Team) { name->
+      new Team(name, project.devconfig.minTeamsize)
     }
-    project.cooking.extensions.meals = meals
+    project.devconfig.extensions.teams = teams
   }
 }
 
 class CookingExtension {
-  Integer expectedPeopleEating
+  Integer minTeamsize
 
   CookingExtension() {
   }
 }
 
-class Meal {
+class Team {
   String name
-  Integer peopleEating
+  Integer size
 
-  Meal(String name, Integer peopleEating) {
+  Team(String name, Integer minTeamsize) {
     this.name = name
-    this.peopleEating = peopleEating
+    this.size = minTeamsize
+  }
+
+  String getSizeString() {
+    (size == 1) ? "$size member" : "$size members"
   }
 }
