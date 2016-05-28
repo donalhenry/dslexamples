@@ -4,10 +4,10 @@ apply plugin: CookingDslPlugin
 
 devconfig {
   teams {
-    elections {
-    }
     engineering {
       size = 4
+    }
+    elections {
     }
     pfunk {
     }
