@@ -10,8 +10,9 @@ The code of all examples have a common structure.  The top-level **build.gradle*
 
 - Example 2 - Builds on example 1 and specifies the default value within the DSL instance, making it more self-contained.
 
-- Example 3
-- Example 4
+- Example 3 - Adds nested DSL to the teams DSL
+
+- Example 4 - 
 - Example 5
 - Example 6
 - Example 7
