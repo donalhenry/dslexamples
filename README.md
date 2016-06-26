@@ -6,6 +6,24 @@ Wanted to create some working examples of some of the basic techniques used with
 
 The code of all examples have a common structure.  The top-level **build.gradle** file has the DSL instance and maybe a few tasks.  The DSL parsing code is within one more groovy files within the **buildSrc** tree.
 
+```bash
+dohenry@ubuntu-1404-donhenry:~/dslexamples/example1$ tree
+.
+├── build.gradle
+└── buildSrc
+    └── src
+        └── main
+            └── groovy
+                └── com
+                    └── donalhenry
+                        └── gradle
+                            └── example1
+                                └── CookingDslPlugin.groovy
+
+8 directories, 2 files
+```
+
+
 - Example 1 - Uses a DSL to hold information about a collection of development teams.  The information in this case is the team size, which has a default value.
 
 - Example 2 - Specifies the default value within the DSL instance, making it more self-contained.
@@ -18,4 +36,4 @@ The code of all examples have a common structure.  The top-level **build.gradle*
 
 - Example 6 -
 
-- Example 7 - 
+- Example 7 -
