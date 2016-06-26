@@ -23,6 +23,7 @@ dohenry@ubuntu-1404-donhenry:~/dslexamples/example1$ tree
 8 directories, 2 files
 ```
 
+Below is a thumbnail summary of each example.  These examples will all eventually be ties to blog posts at [donalhenry.com](http://www.donalhenry.com/) which provide a much more detailed explanation of the code in each example.
 
 - Example 1 - Uses a DSL to hold information about a collection of development teams.  The information in this case is the team size, which has a default value.
 
