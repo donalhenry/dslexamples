@@ -7,7 +7,7 @@ Wanted to create some working examples that illustrate the basic techniques used
 The code of all examples have a common structure.  The top-level **build.gradle** file has the DSL instance and maybe a few tasks.  The DSL plugin code is within one more groovy files in the **buildSrc** tree.
 
 ```bash
-dohenry@ubuntu-1404-donhenry:~/dslexamples/example1$ tree
+$ tree
 .
 ├── build.gradle
 └── buildSrc
