@@ -23,7 +23,7 @@ class CookingDslPlugin implements Plugin<Project> {
     def teams = project.container(Team) { name->
       new Team(name, project.devconfig.minTeamsize)
     }
-    project.devconfig.extensions.teams = teams
+    project.devconfig.extensions.add('teams', teams)
   }
 }
 

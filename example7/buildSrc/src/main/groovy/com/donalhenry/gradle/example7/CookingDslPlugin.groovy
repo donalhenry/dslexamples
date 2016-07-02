@@ -24,7 +24,7 @@ class CookingDslPlugin implements Plugin<Project> {
     def regions = project.container(Region) { name->
       new Region(name)
     }
-    project.asgard.extensions.regions = regions
+    project.asgard.extensions.add('regions', regions)
   }
 }
 

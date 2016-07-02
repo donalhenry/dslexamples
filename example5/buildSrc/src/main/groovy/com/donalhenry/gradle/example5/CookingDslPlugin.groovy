@@ -25,7 +25,7 @@ class CookingDslPlugin implements Plugin<Project> {
     def teams = project.container(Team) { name->
       new Team(name, project)
     }
-    project.devconfig.extensions.teams = teams
+    project.devconfig.extensions.add('teams', teams)
 
     project.tasks.create(name: 'dumpAllTeamUrls', type: DumpAllTeamUrls) {
       description 'Dumps all team URLs.'

@@ -12,9 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import com.donalhenry.gradle.example7.*
-
-apply plugin: CookingDslPlugin
+apply plugin: com.donalhenry.gradle.example7.CookingDslPlugin
 
 asgard {
   regions {
