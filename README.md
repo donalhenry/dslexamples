@@ -4,7 +4,7 @@ Examples of gradle DSL
 
 Wanted to create some working examples that illustrate the basic techniques used with gradle DSL.
 
-The code of all examples have a common structure.  The top-level **build.gradle** file has the DSL instance and maybe a few tasks.  The DSL plugin code is within one more groovy files in the **buildSrc** tree.
+The code of all examples have a common structure.  The top-level **build.gradle** file has the DSL block and maybe a few tasks.  The DSL plugin code is within one more groovy files in the **buildSrc** tree.
 
 ```bash
 $ tree
