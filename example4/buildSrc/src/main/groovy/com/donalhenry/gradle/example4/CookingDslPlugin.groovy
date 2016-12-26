@@ -21,7 +21,8 @@ import org.gradle.util.ConfigureUtil
 class CookingDslPlugin implements Plugin<Project> {
   void apply(Project project) {
     project.extensions.create('devconfig', CookingExtension)
-    project.devconfig.extensions.repositories = new Repositories()
+    def repositories = new Repositories()
+    project.devconfig.extensions.add('repositories', repositories)
     def teams = project.container(Team) { name->
       new Team(name, project)
     }
