@@ -19,24 +19,22 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 
 class DumpAllTeamUrls extends DefaultTask {
-  @Input def teams
+  def teams
 
   @TaskAction
   void perform() {
-    def teams = getTeams()
-    teams.each { team ->
+    getTeams().each { team ->
       println team.yum.url
     }
   }
 }
 
 class DumpTeamUrl extends DefaultTask {
-  @Input def teams
+  def teams
 
   @TaskAction
   void perform() {
-    def teams = getTeams()
-    def team = teams.getByName(project['team'])
+    def team = getTeams().getByName(project['team'])
     println team.yum.url
   }
 }
