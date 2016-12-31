@@ -30,15 +30,10 @@ class CookingDslPlugin implements Plugin<Project> {
 
     project.tasks.create(name: 'dumpAllTeamUrls', type: DumpAllTeamUrls) {
       description 'Dumps all team URLs.'
+      conventionMapping.teams = { project.devconfig.teams }
     }
     project.tasks.create(name: 'dumpTeamUrl', type: DumpTeamUrl) {
       description 'Dumps specified (with -Pteam=XXX) team URL.'
-    }
-
-    project.tasks.withType(DumpAllTeamUrls) {
-      conventionMapping.teams = { project.devconfig.teams }
-    }
-    project.tasks.withType(DumpTeamUrl) {
       conventionMapping.teams = { project.devconfig.teams }
     }
   }
