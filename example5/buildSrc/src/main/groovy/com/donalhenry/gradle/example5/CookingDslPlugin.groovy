@@ -36,12 +36,10 @@ class CookingDslPlugin implements Plugin<Project> {
     }
 
     project.tasks.withType(DumpAllTeamUrls) {
-      def devconfigExt = project.extensions.getByName('devconfig')
-      conventionMapping.teams = { devconfigExt.extensions.getByName('teams') }
+      conventionMapping.teams = { project.devconfig.teams }
     }
     project.tasks.withType(DumpTeamUrl) {
-      def devconfigExt = project.extensions.getByName('devconfig')
-      conventionMapping.teams = { devconfigExt.extensions.getByName('teams') }
+      conventionMapping.teams = { project.devconfig.teams }
     }
   }
 }
