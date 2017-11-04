@@ -23,7 +23,7 @@ clean.dependsOn cleanGetRepo
 
 
 class ZipRepo extends Zip {
-  final Property<String> versionZip = project.property(String)
+  final PropertyState<String> versionZip = project.property(String)
 
   String getVersion() {
     this.versionZip.get()
