@@ -21,12 +21,12 @@ task zipRepo (type: ZipRepo) {
 
 clean.dependsOn cleanGetRepo
 
-// lifted from https://guides.gradle.org/implementing-gradle-plugins/ - LatestArtifactVersion.java
+
 class ZipRepo extends Zip {
   final Property<String> versionZip = project.property(String)
 
-  @Input String getVersion() {
-    return this.versionZip.get()
+  String getVersion() {
+    this.versionZip.get()
   }
 
   void setVersion(Provider<String> versionZip) {
@@ -41,7 +41,7 @@ class GitGetTask extends DefaultTask {
   @Input String baseUrl
   @Input String branchName = 'master'
   @OutputDirectory File getDestinationDir() {
-    project.file(repoName)
+    project.file("$project.buildDir/$repoName")
   }
 
   @TaskAction doIt() {
@@ -53,7 +53,7 @@ class GitGetTask extends DefaultTask {
   Provider<String> getVersion() {
     project.provider {
       def gitRepo = Grgit.open(dir: destinationDir)
-      return gitRepo.head().abbreviatedId
+      gitRepo.head().abbreviatedId
     }
   }
 }
