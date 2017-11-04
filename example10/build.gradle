@@ -1,0 +1,59 @@
+buildscript {
+  repositories {
+    maven { url "https://plugins.gradle.org/m2/" }
+  }
+  dependencies {
+    classpath 'org.ajoberstar:grgit:2.0.1'
+  }
+}
+
+apply plugin: 'base'
+
+task getRepo (type: GitGetTask) {
+  repoName 'dslexamples'
+  baseUrl 'https://github.com/donalhenry'
+}
+
+task zipRepo (type: ZipRepo) {
+  from getRepo
+  version = getRepo.version
+}
+
+clean.dependsOn cleanGetRepo
+
+// lifted from https://guides.gradle.org/implementing-gradle-plugins/ - LatestArtifactVersion.java
+class ZipRepo extends Zip {
+  final Property<String> versionZip = project.property(String)
+
+  @Input String getVersion() {
+    return this.versionZip.get()
+  }
+
+  void setVersion(Provider<String> versionZip) {
+    this.versionZip.set(versionZip)
+  }
+}
+
+import org.ajoberstar.grgit.Grgit
+
+class GitGetTask extends DefaultTask {
+  @Input String repoName
+  @Input String baseUrl
+  @Input String branchName = 'master'
+  @OutputDirectory File getDestinationDir() {
+    project.file(repoName)
+  }
+
+  @TaskAction doIt() {
+    def gitUrl = "$baseUrl/$repoName"
+    println "Checking out $gitUrl(origin/$branchName)..."
+    Grgit.clone(dir: destinationDir, uri: gitUrl, checkout: true, refToCheckout: branchName)
+  }
+
+  Provider<String> getVersion() {
+    project.provider {
+      def gitRepo = Grgit.open(dir: destinationDir)
+      return gitRepo.head().abbreviatedId
+    }
+  }
+}
