@@ -1,0 +1,46 @@
+apply plugin: 'base'
+
+task createGreeting (type: CreateGreeting){
+  greetingText 'Hello from inside createGreeting'
+}
+
+task displayGreeting (type: DisplayGreeting) {
+  dependsOn createGreeting
+  greeting createGreeting.greeting
+}
+
+
+
+class CreateGreeting extends DefaultTask {
+  @Input String greetingText
+  @OutputFile File getGreetingFile() {
+    project.file("$project.buildDir/greeting.txt")
+  }
+
+  Provider<String> getGreeting() {
+    project.provider {
+      greetingFile.text
+    }
+  }
+
+  @TaskAction doit() {
+    greetingFile.text = greetingText + """
+"""
+  }
+}
+
+class DisplayGreeting extends DefaultTask {
+  final PropertyState<String> greetingProp = project.property(String)
+
+  String getGreeting() {
+    this.greetingProp.get()
+  }
+
+  void setGreeting(Provider<String> greetingProv) {
+    this.greetingProp.set(greetingProv)
+  }
+
+  @TaskAction doit() {
+    println greeting
+  }
+}
