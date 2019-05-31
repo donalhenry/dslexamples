@@ -46,7 +46,7 @@ class GitGetTask extends DefaultTask {
 }
 
 class ZipRepo extends Zip {
-  final PropertyState<String> versionZip = project.property(String)
+  final PropertyState<String> versionZip = project.objects.property(String)
 
   String getVersion() {
     this.versionZip.get()

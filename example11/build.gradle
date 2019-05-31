@@ -23,7 +23,7 @@ clean.dependsOn cleanGetRepo
 
 // lifted from https://guides.gradle.org/implementing-gradle-plugins/ - LatestArtifactVersion.java
 class ZipRepo extends Zip {
-  final Property<String> versionZip = project.property(String)
+  final Property<String> versionZip = project.objects.property(String)
 
   String getVersion() {
     return this.versionZip.getOrElse(super.getVersion())
@@ -37,9 +37,9 @@ class ZipRepo extends Zip {
 import org.ajoberstar.grgit.Grgit
 
 class GitGetTask extends DefaultTask {
-  @Input final Property<String> repoName = project.property(String)
-  @Input final Property<String> baseUrl = project.property(String)
-  @Input final Property<String> branchName = project.property(String)
+  @Input final Property<String> repoName = project.objects.property(String)
+  @Input final Property<String> baseUrl = project.objects.property(String)
+  @Input final Property<String> branchName = project.objects.property(String)
   @OutputDirectory final DirectoryProperty destinationDir = newOutputDirectory()
 
   GitGetTask() {
