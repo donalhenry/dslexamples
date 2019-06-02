@@ -45,8 +45,9 @@ class GitGetTask extends DefaultTask {
   }
 }
 
+// lifted from https://guides.gradle.org/implementing-gradle-plugins/ - LatestArtifactVersion.java
 class ZipRepo extends Zip {
-  final PropertyState<String> versionZip = project.objects.property(String)
+  final Property<String> versionZip = project.objects.property(String)
 
   String getVersion() {
     this.versionZip.get()

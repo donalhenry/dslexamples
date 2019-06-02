@@ -14,24 +14,11 @@ task getRepo (type: GitGetTask) {
   baseUrl = 'https://github.com/donalhenry'
 }
 
-task zipRepo (type: ZipRepo) {
-  from getRepo
-  version = getRepo.version
-}
-
 clean.dependsOn cleanGetRepo
 
-// lifted from https://guides.gradle.org/implementing-gradle-plugins/ - LatestArtifactVersion.java
-class ZipRepo extends Zip {
-  final Property<String> versionZip = project.objects.property(String)
-
-  String getVersion() {
-    return this.versionZip.getOrElse(super.getVersion())
-  }
-
-  void setVersion(Provider<String> versionZip) {
-    this.versionZip.set(versionZip)
-  }
+task zipRepo (type: ZipRepo) {
+  from getRepo
+  version getRepo.version
 }
 
 import org.ajoberstar.grgit.Grgit
@@ -43,6 +30,7 @@ class GitGetTask extends DefaultTask {
   @OutputDirectory final DirectoryProperty destinationDir = newOutputDirectory()
 
   GitGetTask() {
+    // destinationDir.set(project.layout.projectDirectory.dir("$project.buildDir/$repoName"))
     destinationDir.set(project.layout.projectDirectory.dir(repoName))
     branchName.set('master')
   }
@@ -62,5 +50,18 @@ class GitGetTask extends DefaultTask {
         gitRepo.close()
       }
     }
+  }
+}
+
+// lifted from https://guides.gradle.org/implementing-gradle-plugins/ - LatestArtifactVersion.java
+class ZipRepo extends Zip {
+  final Property<String> versionZip = project.objects.property(String)
+
+  String getVersion() {
+    return this.versionZip.getOrElse(super.getVersion())
+  }
+
+  void setVersion(Provider<String> versionZip) {
+    this.versionZip.set(versionZip)
   }
 }
